@@ -4,7 +4,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var showAlert = false
-    @State private var value: Float = 0.2    
+    @State private var value: Float = Float(Int.random(in: 0...100))
     @State private var number = Int.random(in: 0...100)
     
     var computeScore: Int {
