@@ -25,9 +25,7 @@ struct ContentView: View {
                         value = newValue
                     }
                 Text("100")
-            }
-            Text("\(value)")
-            
+            }            
             Button("Проверь меня") {
                 self.showAlert.toggle()
             }.alert("Ваш результат", isPresented: $showAlert) {
