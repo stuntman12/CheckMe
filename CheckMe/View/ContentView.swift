@@ -7,19 +7,17 @@ struct ContentView: View {
     @State private var value: Float = Float(Int.random(in: 0...100))
     @State private var number = Int.random(in: 0...100)
     
-    var computeScore: Int {
-        let difference = abs(number - lround(Double((value))))
-        return 100 - difference
-    }
-    
     var body: some View {
         VStack(spacing: 25) {
+        
+            ProgressX(opacity: opacity())
+            
             Text("Подвинь слайдер, как можно ближе к \(number)")
                 .lineLimit(0)
             
             HStack{
                 Text("0")
-                UISliderRepresent(value: $value, number: $number)
+                UISliderRepresent(value: $value, opacity: opacity())
                     .frame(width: 230)
                     .onChange(of: value) { _, newValue in
                         value = newValue
@@ -31,7 +29,7 @@ struct ContentView: View {
             }.alert("Ваш результат", isPresented: $showAlert) {
                 //
             } message: {
-                Text("\(computeScore)")
+                Text("\(opacity())")
             }
 
             Button("Начать заново") {
@@ -39,6 +37,13 @@ struct ContentView: View {
             }
         }
         .padding()
+    }
+}
+
+extension ContentView {
+    private func opacity() -> Int {
+        let difference = abs(number - lround(Double((value))))
+        return (100 - difference) / 10
     }
 }
 

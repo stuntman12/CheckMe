@@ -6,13 +6,9 @@ struct UISliderRepresent: UIViewRepresentable {
     typealias UIViewType = UISlider
     
     @Binding var value: Float
-    @Binding var number: Int
-      
-    var computeScore: Int {
-        let difference = abs(number - lround(Double((value))))
-        return 100 - difference
-    }
     
+    let opacity: Int
+  
     func makeUIView(context: Context) -> UISlider {
         let slider = UISlider()
         
@@ -20,12 +16,13 @@ struct UISliderRepresent: UIViewRepresentable {
         slider.minimumValue = 0
         slider.maximumValue = 100
         slider.addTarget(context.coordinator, action: #selector(Coordinator.changeValue), for: .valueChanged)
+        slider.thumbTintColor = UIColor.purple.withAlphaComponent(CGFloat(opacity) / 10)
         
         return slider
     }
     
     func updateUIView(_ uiView: UISlider, context: Context) {
-        uiView.thumbTintColor = UIColor.purple.withAlphaComponent(CGFloat(computeScore) / 100)
+        uiView.thumbTintColor = UIColor.purple.withAlphaComponent(CGFloat(opacity) / 10)
     }
     
     func makeCoordinator() -> Coordinator {
